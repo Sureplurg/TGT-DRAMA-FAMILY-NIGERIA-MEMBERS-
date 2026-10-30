@@ -11,10 +11,8 @@
 
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#100d09;color:#fff;
- font-family:Arial,sans-serif;
-}
+body{margin:0;background:#100d09;color:#fff;font-family:Arial,sans-serif}
+
 header{
  text-align:center;padding:20px 12px;
  background:linear-gradient(120deg,#090706,#48300e,#090706);
@@ -24,29 +22,20 @@ header h1{margin:0;color:#f6d68b;font-size:clamp(21px,4vw,30px)}
 header p{margin:7px 0 0;color:#e8c77c;font-size:13px}
 
 main{
- width:100%;max-width:1150px;margin:20px auto;
- padding:12px;display:grid;
- grid-template-columns:minmax(0,340px) minmax(0,1fr);
- gap:16px;
+ width:100%;max-width:1150px;margin:20px auto;padding:12px;
+ display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:16px;
 }
-.panel{
- min-width:0;background:#1a160f;
- padding:16px;border:1px solid #80602c;
- border-radius:12px;
-}
+.panel{min-width:0;background:#1a160f;padding:16px;border:1px solid #80602c;border-radius:12px}
 h2{font-size:19px;color:#f5d27d;margin:4px 0 15px}
 label{display:block;color:#e9ca80;margin:12px 0 5px;font-size:13px}
 input,select{
- width:100%;min-width:0;padding:12px;
- background:#090806;color:white;
- border:1px solid #82632f;border-radius:7px;
- font-size:15px;
+ width:100%;min-width:0;padding:12px;background:#090806;color:white;
+ border:1px solid #82632f;border-radius:7px;font-size:15px;
 }
 button{
  padding:12px 15px;margin:5px 3px 0 0;
  background:linear-gradient(120deg,#aa781f,#f5d88c);
- border:0;border-radius:7px;
- font-weight:bold;cursor:pointer;color:#170f03;
+ border:0;border-radius:7px;font-weight:bold;cursor:pointer;color:#170f03;
 }
 button.secondary{background:#382b17;color:#ffe0a0;border:1px solid #98702d}
 button.danger{background:#842e21;color:white}
@@ -54,24 +43,17 @@ button.danger{background:#842e21;color:white}
 .small{font-size:12px;color:#cdbb91;line-height:1.5}
 
 #cardArea{width:100%;min-width:0}
-.card-viewport{
- width:100%;overflow:hidden;
- position:relative;
-}
-.card-stage{
- width:850px;height:535px;
- transform-origin:top left;
-}
+.card-viewport{width:100%;overflow:hidden;position:relative}
+.card-stage{width:850px;height:535px;transform-origin:top left}
+
 .idcard{
- width:850px;height:535px;
- position:relative;overflow:hidden;
+ width:850px;height:535px;position:relative;overflow:hidden;
  border:5px solid #e0b64d;border-radius:22px;
  background:
  radial-gradient(ellipse at 72% 50%,#9c641c 0%,#462607 15%,transparent 38%),
  linear-gradient(90deg,rgba(0,0,0,.94),rgba(15,9,2,.74),rgba(0,0,0,.94)),
  repeating-linear-gradient(90deg,#170a04 0 25px,#58200b 28px 42px,#190904 45px 65px);
- box-shadow:0 10px 35px #000;
- color:white;
+ box-shadow:0 10px 35px #000;color:white;
 }
 .idcard:before{
  content:"";position:absolute;inset:0;
@@ -93,27 +75,48 @@ button.danger{background:#842e21;color:white}
 .book{position:absolute;left:20px;bottom:5px;font-size:60px;opacity:.17}
 
 .inside{position:absolute;inset:23px 28px;z-index:2}
+
+/* FIXED LOGO AREA */
 .brand{
- display:flex;align-items:center;gap:14px;
- margin-left:185px;height:90px;
+ position:absolute;
+ left:245px;
+ top:5px;
+ display:flex;
+ align-items:center;
+ gap:15px;
+ height:88px;
+ width:540px;
+}
+.logo-wrap{
+ width:82px;height:82px;flex:0 0 82px;
+ border-radius:50%;border:3px solid #e8bd56;
+ background:#080706;
+ display:flex;align-items:center;justify-content:center;
+ overflow:hidden;
+ box-shadow:0 0 12px rgba(232,189,86,.45);
 }
 .logo{
- width:75px;height:75px;border-radius:50%;
- border:3px solid #e8bd56;object-fit:cover;
- background:#080706;
+ width:100%;height:100%;
+ object-fit:contain;
+ border-radius:50%;
+ display:block;
+}
+.logo-placeholder{
+ color:#ffda83;font-family:Georgia,serif;
+ font-size:21px;font-weight:bold;text-align:center;
+ line-height:1.1;
 }
 .brand h1{
  font-family:Georgia,serif;color:#ffda83;
- font-size:37px;margin:0;
+ font-size:35px;margin:0;white-space:nowrap;
 }
-.brand .sub{font-size:12px;letter-spacing:2px;color:#f2ce77;margin-top:5px}
-.brand .motto{font-family:Georgia,serif;font-style:italic;color:#ffda83;margin-top:5px}
+.brand .sub{font-size:11px;letter-spacing:1.5px;color:#f2ce77;margin-top:5px}
+.brand .motto{font-family:Georgia,serif;font-style:italic;color:#ffda83;margin-top:5px;font-size:14px}
 
 .photo{
  position:absolute;left:22px;top:112px;
  width:205px;height:280px;object-fit:cover;
- border:4px solid #e5b64c;border-radius:14px;
- background:#333;
+ border:4px solid #e5b64c;border-radius:14px;background:#333;
 }
 .details{position:absolute;left:255px;top:112px;width:350px}
 .detail{border-bottom:1px solid #9c742e;padding:5px 0;margin-bottom:3px}
@@ -129,9 +132,8 @@ button.danger{background:#842e21;color:white}
 
 .president{
  position:absolute;right:10px;top:125px;width:165px;
- text-align:center;padding:9px;
- background:#100c08e8;border:2px solid #d7a83f;
- border-radius:10px;color:#ffdc83;
+ text-align:center;padding:9px;background:#100c08e8;
+ border:2px solid #d7a83f;border-radius:10px;color:#ffdc83;
 }
 .president b{display:block;font-size:10px;letter-spacing:1px}
 .president strong{display:block;font-size:17px;margin-top:6px}
@@ -143,6 +145,7 @@ button.danger{background:#842e21;color:white}
 }
 #qrcode{display:flex;justify-content:center;align-items:center;min-height:112px}
 #qrcode img{max-width:112px}
+#qrcode canvas{max-width:112px}
 .qrbox small{font-size:9px;font-weight:bold;display:block;margin-top:5px}
 
 .slogan{
@@ -156,9 +159,8 @@ button.danger{background:#842e21;color:white}
 }
 
 .member{
- display:flex;justify-content:space-between;
- align-items:center;padding:10px;
- border-bottom:1px solid #51401e;gap:8px;
+ display:flex;justify-content:space-between;align-items:center;
+ padding:10px;border-bottom:1px solid #51401e;gap:8px;
 }
 .member span{overflow-wrap:anywhere}
 #members{max-height:350px;overflow:auto;margin-top:12px}
@@ -253,7 +255,7 @@ button.danger{background:#842e21;color:white}
 <h2>Organisation Logo</h2>
 <label>Upload TGT Drama Family Logo</label>
 <input type="file" id="logoUpload" accept="image/*">
-<p class="small">Your uploaded logo is stored in this browser on this device.</p>
+<p class="small">Upload your organisation logo here. It will appear in the reserved logo space on the membership card and will be saved in this browser on this device.</p>
 
 <div class="actions">
 <button class="secondary" onclick="backup()">Backup Records</button>
@@ -281,7 +283,10 @@ button.danger{background:#842e21;color:white}
 <div class="inside">
 
 <div class="brand">
-<img id="cardLogo" class="logo" alt="TGT Logo">
+<div class="logo-wrap">
+<img id="cardLogo" class="logo" alt="TGT Drama Family Logo" style="display:none">
+<div id="logoPlaceholder" class="logo-placeholder">TGT<br>LOGO</div>
+</div>
 <div>
 <h1>TGT DRAMA FAMILY</h1>
 <div class="sub">OFFICIAL MEMBERSHIP IDENTITY CARD</div>
@@ -380,6 +385,7 @@ function readImage(file){
   reader.onerror=reject;
   reader.readAsDataURL(file);
  });
+
 }
 
 $("photo").addEventListener("change",async e=>{
@@ -390,14 +396,35 @@ $("photo").addEventListener("change",async e=>{
 $("logoUpload").addEventListener("change",async e=>{
  let file=e.target.files[0];
  if(!file)return;
- localStorage.setItem(LOGO,await readImage(file));
- loadLogo();
+
+ try{
+  let image=await readImage(file);
+  localStorage.setItem(LOGO,image);
+  loadLogo();
+  alert("TGT Drama Family logo uploaded successfully.");
+ }catch(error){
+  alert("Unable to upload this logo. Please try another image.");
+ }
 });
 
 function loadLogo(){
  let logo=localStorage.getItem(LOGO);
- $("cardLogo").src=logo||"";
- $("cardLogo").style.visibility=logo?"visible":"hidden";
+
+ if(logo){
+  $("cardLogo").onload=()=>{
+   $("cardLogo").style.display="block";
+   $("logoPlaceholder").style.display="none";
+  };
+  $("cardLogo").onerror=()=>{
+   $("cardLogo").style.display="none";
+   $("logoPlaceholder").style.display="block";
+  };
+  $("cardLogo").src=logo;
+ }else{
+  $("cardLogo").removeAttribute("src");
+  $("cardLogo").style.display="none";
+  $("logoPlaceholder").style.display="block";
+ }
 }
 
 $("form").addEventListener("submit",e=>{
@@ -463,6 +490,7 @@ function displayCard(m){
   $("qrcode").textContent="QR library unavailable";
  }
 
+ loadLogo();
  resizeCard();
 }
 
@@ -509,6 +537,38 @@ function showMembers(){
  });
 }
 
+function waitForImage(img){
+ return new Promise(resolve=>{
+  if(!img || !img.src || img.complete){
+   resolve();
+   return;
+  }
+  img.onload=resolve;
+  img.onerror=resolve;
+ });
+}
+
+async function createCardCanvas(){
+ await waitForImage($("cardPhoto"));
+ await waitForImage($("cardLogo"));
+
+ await new Promise(resolve=>setTimeout(resolve,300));
+
+ return await html2canvas($("card"),{
+  scale:3,
+  width:850,
+  height:535,
+  backgroundColor:null,
+  useCORS:true,
+  allowTaint:false,
+  logging:false,
+  scrollX:0,
+  scrollY:0,
+  windowWidth:1000,
+  windowHeight:700
+ });
+}
+
 async function downloadCard(){
  if(!current){
   alert("Please register or select a member first.");
@@ -526,19 +586,7 @@ async function downloadCard(){
  try{
   stage.style.transform="none";
 
-  let canvas=await html2canvas($("card"),{
-   scale:3,
-   width:850,
-   height:535,
-   backgroundColor:null,
-   useCORS:true,
-   allowTaint:false,
-   logging:false,
-   scrollX:0,
-   scrollY:0,
-   windowWidth:1000,
-   windowHeight:700
-  });
+  let canvas=await createCardCanvas();
 
   let link=document.createElement("a");
   link.download=current.number+"-TGT-Drama-Family-ID.png";
@@ -564,21 +612,21 @@ async function shareCard(){
   return;
  }
 
+ let stage=$("cardStage");
+ let oldTransform=stage.style.transform;
+
  try{
-  let stage=$("cardStage");
-  let oldTransform=stage.style.transform;
   stage.style.transform="none";
 
-  let canvas=await html2canvas($("card"),{
-   scale:3,width:850,height:535,
-   backgroundColor:null,useCORS:true
-  });
+  let canvas=await createCardCanvas();
+
+  let blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
+  if(!blob)throw Error("Image conversion failed");
+
+  let file=new File([blob],current.number+"-TGT-ID.png",{type:"image/png"});
 
   stage.style.transform=oldTransform;
   resizeCard();
-
-  let blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
-  let file=new File([blob],current.number+"-TGT-ID.png",{type:"image/png"});
 
   await navigator.share({
    files:[file],
@@ -587,6 +635,7 @@ async function shareCard(){
   });
 
  }catch(error){
+  stage.style.transform=oldTransform;
   resizeCard();
   alert("Sharing was cancelled or unavailable. Download the card instead.");
  }
@@ -603,6 +652,7 @@ function backup(){
  link.href=URL.createObjectURL(blob);
  link.download="TGT-Drama-Family-Backup.json";
  link.click();
+ URL.revokeObjectURL(link.href);
 }
 
 $("restore").addEventListener("change",async e=>{
@@ -654,11 +704,13 @@ function exportCSV(){
  link.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
  link.download="TGT-Drama-Family-Members.csv";
  link.click();
+ URL.revokeObjectURL(link.href);
 }
 
 loadLogo();
 showMembers();
 resizeCard();
 </script>
+
 </body>
 </html>
