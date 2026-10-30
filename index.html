@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,19 +26,33 @@ button{border:0;border-radius:7px;padding:12px;font-size:14px;font-weight:bold;c
 #message{color:#e6bd50}
 .preview{display:flex;justify-content:center;margin:20px 0}
 .card{
- width:380px;max-width:100%;min-height:245px;
- padding:15px;background:linear-gradient(135deg,#090909,#302408);
+ width:390px;max-width:100%;min-height:260px;
+ padding:14px;background:linear-gradient(135deg,#090909,#302408);
  border:2px solid #d5ad45;border-radius:13px;color:white;
 }
-.card-top{text-align:center;border-bottom:1px solid #b38b2c;padding-bottom:9px}
-.card-top h3{color:#eac75e;margin:2px;font-size:21px}
-.card-top small{letter-spacing:1.5px;font-size:9px;color:#ddd}
-.card-body{display:flex;gap:12px;align-items:center;padding:13px 0}
-.photo{width:105px;height:125px;object-fit:cover;border:2px solid #d8b24d;border-radius:5px;background:#333}
+.card-top{
+ display:flex;align-items:center;justify-content:center;
+ gap:10px;border-bottom:1px solid #b38b2c;padding-bottom:9px;
+}
+.logo{
+ width:55px;height:55px;object-fit:contain;
+ background:#fff;border-radius:50%;padding:3px;
+}
+.logo-placeholder{
+ width:55px;height:55px;border:1px solid #d5ad45;
+ border-radius:50%;display:flex;align-items:center;
+ justify-content:center;color:#eac75e;font-size:10px;
+ text-align:center;
+}
+.card-heading{text-align:left}
+.card-heading h3{color:#eac75e;margin:2px;font-size:19px}
+.card-heading small{letter-spacing:1px;font-size:8px;color:#ddd}
+.card-body{display:flex;gap:10px;align-items:center;padding:13px 0}
+.photo{width:100px;height:120px;object-fit:cover;border:2px solid #d8b24d;border-radius:5px;background:#333}
 .details{flex:1;min-width:0}
-.details h3{font-size:17px;color:#f1ce69;margin:0 0 9px;overflow-wrap:anywhere}
-.details p{font-size:11px;margin:7px 0;overflow-wrap:anywhere}
-.qr{background:white;padding:4px;border-radius:4px;width:82px;height:82px;display:flex;align-items:center;justify-content:center}
+.details h3{font-size:16px;color:#f1ce69;margin:0 0 8px;overflow-wrap:anywhere}
+.details p{font-size:10px;margin:6px 0;overflow-wrap:anywhere}
+.qr{background:white;padding:4px;border-radius:4px;width:76px;height:76px;display:flex;align-items:center;justify-content:center}
 .qr img{max-width:100%;max-height:100%}
 .card-bottom{text-align:center;border-top:1px solid #b38b2c;padding-top:8px;color:#e8c45c;font-size:9px;letter-spacing:1px}
 .member{background:#292929;padding:12px;border-radius:8px;margin:9px 0;display:flex;gap:10px;align-items:center}
@@ -58,13 +71,19 @@ footer{text-align:center;color:#999;padding:20px;font-size:12px}
 </head>
 
 <body>
-
 <header>
 <h1>TGT DRAMA FAMILY</h1>
 <p>OFFICIAL MEMBERSHIP MANAGEMENT SYSTEM</p>
 </header>
 
 <div class="container">
+
+<div class="panel">
+<h2>Upload TGT DRAMA FAMILY Logo</h2>
+<label>Select your organisation logo</label>
+<input type="file" id="logoInput" accept="image/*">
+<p style="color:#bbb;font-size:12px">Upload your logo once. It will be saved in this browser and displayed on generated cards.</p>
+</div>
 
 <div class="panel">
 <h2>Register New Member</h2>
@@ -75,9 +94,9 @@ footer{text-align:center;color:#999;padding:20px;font-size:12px}
 <label>Surname</label>
 <input id="surname" placeholder="Enter surname">
 
-<label>phone number</label>
-<input id="phone number" placeholder="Enter phone number">
- 
+<label>Phone Number</label>
+<input id="phone" type="tel" placeholder="Enter member's phone number">
+
 <label>State</label>
 <select id="state">
 <option value="">Select state</option>
@@ -103,7 +122,7 @@ footer{text-align:center;color:#999;padding:20px;font-size:12px}
 <select id="position">
 <option value="">Select position</option>
 <option>Founder</option>
-<option>ACTOR/ACTRESS</option>
+<option>CEO</option>
 <option>Director</option>
 <option>Coordinator</option>
 <option>Executive Member</option>
@@ -128,8 +147,12 @@ footer{text-align:center;color:#999;padding:20px;font-size:12px}
 <div class="card" id="membershipCard">
 
 <div class="card-top">
+<img id="cardLogo" class="logo" alt="TGT Logo" style="display:none">
+<div id="logoPlaceholder" class="logo-placeholder">TGT<br>LOGO</div>
+<div class="card-heading">
 <h3>TGT DRAMA FAMILY</h3>
 <small>OFFICIAL MEMBERSHIP IDENTITY CARD</small>
+</div>
 </div>
 
 <div class="card-body">
@@ -138,6 +161,7 @@ footer{text-align:center;color:#999;padding:20px;font-size:12px}
 <div class="details">
 <h3 id="cardName">MEMBER NAME</h3>
 <p>Membership No: <b id="cardNumber">TGT-0000</b></p>
+<p>Phone: <b id="cardPhone">---</b></p>
 <p>State: <b id="cardState">---</b></p>
 <p>Nationality: <b id="cardNationality">---</b></p>
 <p>Position: <b id="cardPosition">---</b></p>
@@ -147,9 +171,8 @@ footer{text-align:center;color:#999;padding:20px;font-size:12px}
 </div>
 
 <div class="card-bottom">
-PASSING THE TRUE GOSPEL THROUGH DRAMA
+PASSING THE TRUE GOSPEL THROUGH STAGE DRAMA
 </div>
-
 </div>
 </div>
 
@@ -162,36 +185,39 @@ PASSING THE TRUE GOSPEL THROUGH DRAMA
 
 <div class="panel">
 <h2>Registered Members</h2>
-
-<input id="search" placeholder="Search member name or number..." oninput="displayMembers()">
-
+<input id="search" placeholder="Search member name, phone or number..." oninput="displayMembers()">
 <div id="memberList"></div>
 
 <div class="no-print">
 <button class="gold" onclick="exportCSV()">EXPORT REGISTER CSV</button>
 <button class="dark" onclick="backup()">BACKUP DATA</button>
-
 <label>Restore previous backup</label>
 <input type="file" id="restoreFile" accept=".json" onchange="restoreBackup(event)">
 </div>
 </div>
-
 </div>
 
 <footer>TGT DRAMA FAMILY | Membership Administration</footer>
 
 <script>
-const STORAGE_KEY="tgt_drama_family_members_v3";
+const STORAGE_KEY="tgt_drama_family_members_v4";
+const LOGO_KEY="tgt_drama_family_logo";
 let members=[];
 let currentMember=null;
 let photoData="";
+let logoData=localStorage.getItem(LOGO_KEY)||"";
 
 try{
  members=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
 }catch(e){members=[];}
 
 function save(){
- localStorage.setItem(STORAGE_KEY,JSON.stringify(members));
+ try{
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(members));
+ }catch(e){
+  alert("Browser storage is full. Please reduce photo sizes or export a backup.");
+  throw e;
+ }
 }
 
 function nextNumber(){
@@ -203,36 +229,63 @@ function nextNumber(){
  return "TGT-"+String(highest+1).padStart(4,"0");
 }
 
-document.getElementById("photo").addEventListener("change",function(e){
- const file=e.target.files[0];
- if(!file)return;
-
- if(!file.type.startsWith("image/")){
-  alert("Please select an image.");
-  this.value="";
+function readImage(file,callback){
+ if(!file || !file.type.startsWith("image/")){
+  alert("Please select a valid image.");
   return;
  }
-
  if(file.size>5*1024*1024){
-  alert("Please select a photograph smaller than 5MB.");
-  this.value="";
+  alert("Please select an image smaller than 5MB.");
   return;
  }
-
  const reader=new FileReader();
- reader.onload=function(){photoData=reader.result;};
+ reader.onload=()=>callback(reader.result);
  reader.readAsDataURL(file);
+}
+
+document.getElementById("logoInput").addEventListener("change",function(){
+ const file=this.files[0];
+ if(!file)return;
+ readImage(file,data=>{
+  logoData=data;
+  try{
+   localStorage.setItem(LOGO_KEY,logoData);
+   updateLogo();
+   alert("TGT DRAMA FAMILY logo saved successfully.");
+  }catch(e){
+   alert("Logo could not be saved. Please use a smaller image.");
+  }
+ });
+});
+
+function updateLogo(){
+ const img=document.getElementById("cardLogo");
+ const placeholder=document.getElementById("logoPlaceholder");
+ if(logoData){
+  img.src=logoData;
+  img.style.display="block";
+  placeholder.style.display="none";
+ }else{
+  img.style.display="none";
+  placeholder.style.display="flex";
+ }
+}
+
+document.getElementById("photo").addEventListener("change",function(){
+ const file=this.files[0];
+ if(!file)return;
+ readImage(file,data=>photoData=data);
 });
 
 function registerMember(){
  const firstName=document.getElementById("firstName").value.trim();
  const surname=document.getElementById("surname").value.trim();
+ const phone=document.getElementById("phone").value.trim();
  const state=document.getElementById("state").value;
  const nationality=document.getElementById("nationality").value.trim();
  const position=document.getElementById("position").value;
-const phone number=document.getElementById("phone number").value.trim();
- 
- if(!firstName||!surname||!state||!nationality||!position||!photoData){
+
+ if(!firstName||!surname||!phone||!state||!nationality||!position||!photoData){
   alert("Please complete all fields and upload the member's photograph.");
   return;
  }
@@ -241,6 +294,7 @@ const phone number=document.getElementById("phone number").value.trim();
   firstName,
   surname,
   name:firstName+" "+surname,
+  phone,
   state,
   nationality,
   position,
@@ -250,46 +304,46 @@ const phone number=document.getElementById("phone number").value.trim();
  };
 
  members.push(member);
- save();
+ try{save();}catch(e){members.pop();return;}
+
  showCard(member);
  displayMembers();
 
  document.getElementById("message").textContent=
  "Membership card generated successfully: "+member.number;
 
- document.getElementById("firstName").value="";
- document.getElementById("surname").value="";
- document.getElementById("state").value="";
+ ["firstName","surname","phone","state","position","photo"].forEach(id=>{
+  document.getElementById(id).value="";
+ });
  document.getElementById("nationality").value="Nigerian";
- document.getElementById("position").value="";
- document.getElementById("photo").value="";
  photoData="";
 }
 
 function showCard(m){
  currentMember=m;
-
  document.getElementById("cardName").textContent=m.name;
  document.getElementById("cardNumber").textContent=m.number;
+ document.getElementById("cardPhone").textContent=m.phone||"Not supplied";
  document.getElementById("cardState").textContent=m.state;
  document.getElementById("cardNationality").textContent=m.nationality;
  document.getElementById("cardPosition").textContent=m.position;
  document.getElementById("cardPhoto").src=m.photo;
+ updateLogo();
 
  const qr=document.getElementById("qrcode");
  qr.innerHTML="";
-
  new QRCode(qr,{
   text:JSON.stringify({
    organization:"TGT DRAMA FAMILY",
    name:m.name,
    number:m.number,
+   phone:m.phone,
    state:m.state,
    nationality:m.nationality,
    position:m.position
   }),
-  width:75,
-  height:75,
+  width:68,
+  height:68,
   correctLevel:QRCode.CorrectLevel.M
  });
 }
@@ -304,15 +358,13 @@ async function makeCanvas(){
   return null;
  }
  return await html2canvas(document.getElementById("membershipCard"),{
-  scale:3,
-  backgroundColor:null
+  scale:3,backgroundColor:null
  });
 }
 
 async function downloadCard(){
  const canvas=await makeCanvas();
  if(!canvas)return;
-
  const link=document.createElement("a");
  link.download=currentMember.number+".png";
  link.href=canvas.toDataURL("image/png");
@@ -320,10 +372,7 @@ async function downloadCard(){
 }
 
 function printCard(){
- if(!currentMember){
-  alert("Select a member first.");
-  return;
- }
+ if(!currentMember){alert("Select a member first.");return;}
  window.print();
 }
 
@@ -333,8 +382,7 @@ async function shareCard(){
 
  canvas.toBlob(async blob=>{
   const file=new File([blob],currentMember.number+".png",{type:"image/png"});
-
-  if(navigator.canShare && navigator.canShare({files:[file]})){
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
    try{
     await navigator.share({
      files:[file],
@@ -346,7 +394,6 @@ async function shareCard(){
    link.href=canvas.toDataURL("image/png");
    link.download=currentMember.number+".png";
    link.click();
-
    window.open("https://wa.me/?text="+encodeURIComponent(
     "Your TGT DRAMA FAMILY membership card is ready. Membership number: "+currentMember.number
    ),"_blank");
@@ -357,12 +404,12 @@ async function shareCard(){
 function displayMembers(){
  const list=document.getElementById("memberList");
  const query=document.getElementById("search").value.toLowerCase();
-
  list.innerHTML="";
 
  const filtered=members.filter(m=>
   (m.name||"").toLowerCase().includes(query)||
   (m.number||"").toLowerCase().includes(query)||
+  (m.phone||"").toLowerCase().includes(query)||
   (m.state||"").toLowerCase().includes(query)
  );
 
@@ -386,7 +433,7 @@ function displayMembers(){
   strong.textContent=m.name;
 
   const small=document.createElement("small");
-  small.textContent=m.number+" | "+m.state+" | "+m.position;
+  small.textContent=m.number+" | "+(m.phone||"No phone")+" | "+m.state;
 
   info.append(strong,small);
 
@@ -398,16 +445,11 @@ function displayMembers(){
   const remove=document.createElement("button");
   remove.className="red";
   remove.textContent="DELETE";
-
   remove.onclick=()=>{
    if(confirm("Delete "+m.name+"?")){
     members=members.filter(x=>x.number!==m.number);
     save();
-
-    if(currentMember && currentMember.number===m.number){
-     currentMember=null;
-    }
-
+    if(currentMember&&currentMember.number===m.number)currentMember=null;
     displayMembers();
    }
   };
@@ -418,21 +460,12 @@ function displayMembers(){
 }
 
 function exportCSV(){
- const rows=[
-  ["Membership Number","First Name","Surname","State","Nationality","Position","Date Registered"]
- ];
-
- members.forEach(m=>{
-  rows.push([
-   m.number,m.firstName,m.surname,m.state,
-   m.nationality,m.position,m.date
-  ]);
- });
-
- const csv=rows.map(row=>
-  row.map(v=>'"'+String(v||"").replace(/"/g,'""')+'"').join(",")
- ).join("\n");
-
+ const rows=[["Membership Number","First Name","Surname","Phone","State","Nationality","Position","Date Registered"]];
+ members.forEach(m=>rows.push([
+  m.number,m.firstName,m.surname,m.phone,m.state,
+  m.nationality,m.position,m.date
+ ]));
+ const csv=rows.map(row=>row.map(v=>'"'+String(v||"").replace(/"/g,'""')+'"').join(",")).join("\n");
  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"});
  const link=document.createElement("a");
  link.href=URL.createObjectURL(blob);
@@ -442,7 +475,7 @@ function exportCSV(){
 }
 
 function backup(){
- const blob=new Blob([JSON.stringify(members)],{type:"application/json"});
+ const blob=new Blob([JSON.stringify({members,logoData})],{type:"application/json"});
  const link=document.createElement("a");
  link.href=URL.createObjectURL(blob);
  link.download="TGT_Drama_Family_Backup.json";
@@ -455,33 +488,38 @@ function restoreBackup(event){
  if(!file)return;
 
  const reader=new FileReader();
-
  reader.onload=function(){
   try{
    const data=JSON.parse(reader.result);
-
-   if(!Array.isArray(data)||!data.every(m=>m.number&&m.name&&m.photo)){
+   const restored=Array.isArray(data)?data:data.members;
+   if(!Array.isArray(restored)||!restored.every(m=>m.number&&m.name&&m.photo)){
     throw new Error("Invalid backup");
    }
 
    const combined=new Map(members.map(m=>[m.number,m]));
-   data.forEach(m=>combined.set(m.number,m));
-
+   restored.forEach(m=>combined.set(m.number,m));
    members=Array.from(combined.values());
+
+   if(data.logoData){
+    logoData=data.logoData;
+    localStorage.setItem(LOGO_KEY,logoData);
+    updateLogo();
+   }
+
    save();
    displayMembers();
-
    alert("Backup restored successfully.");
   }catch(e){
    alert("This backup file is not valid.");
   }
  };
-
  reader.readAsText(file);
  event.target.value="";
 }
 
+updateLogo();
 displayMembers();
 </script>
 </body>
-</html>
+ </html>
+ 
