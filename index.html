@@ -3,79 +3,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TGT DRAMA FAMILY Membership System</title>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#101010;color:#fff;
- font-family:Arial,sans-serif
-}
-header{
- background:linear-gradient(120deg,#080808,#382800);
- text-align:center;padding:25px 12px;
- border-bottom:3px solid #d5a52b
-}
-header h1{color:#e6bd50;margin:0;font-size:25px}
-header p{color:#eee;margin-bottom:0}
-.container{max-width:850px;margin:auto;padding:16px}
-.panel{
- background:#1b1b1b;border:1px solid #69521d;
- padding:18px;border-radius:12px;margin-bottom:18px
-}
-h2{color:#e6bd50;margin-top:0}
-label{display:block;margin:12px 0 6px;color:#e8c66b}
-input,select{
- width:100%;padding:13px;border-radius:7px;
- border:1px solid #777;background:#292929;color:#fff;
- font-size:16px
-}
-button{
- border:0;border-radius:7px;padding:13px;
- font-size:15px;font-weight:bold;cursor:pointer;
- margin:5px 3px
-}
+body{margin:0;background:#101010;color:white;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#080808,#45320a);text-align:center;padding:25px 12px;border-bottom:3px solid #d5ad45}
+header h1{color:#edc75b;margin:0;font-size:26px}
+header p{margin:7px 0 0;color:#eee}
+.container{max-width:850px;margin:auto;padding:15px}
+.panel{background:#1b1b1b;border:1px solid #72591e;padding:17px;border-radius:12px;margin-bottom:18px}
+h2{color:#e9c45d;margin-top:0}
+label{display:block;color:#e8c66b;margin:12px 0 6px}
+input,select{width:100%;padding:13px;border-radius:7px;border:1px solid #777;background:#292929;color:white;font-size:16px}
+button{border:0;border-radius:7px;padding:12px;font-size:14px;font-weight:bold;cursor:pointer;margin:5px 2px}
 .gold{background:#d9ad3c;color:#111}
 .dark{background:#333;color:white}
 .red{background:#a62c2c;color:white}
-button:disabled{opacity:.5}
+#message{color:#e6bd50}
 .preview{display:flex;justify-content:center;margin:20px 0}
 .card{
- width:340px;max-width:100%;min-height:210px;
+ width:380px;max-width:100%;min-height:245px;
  padding:15px;background:linear-gradient(135deg,#090909,#302408);
- border:2px solid #d5ad45;border-radius:13px;
- color:white;position:relative;overflow:hidden;
+ border:2px solid #d5ad45;border-radius:13px;color:white;
 }
 .card-top{text-align:center;border-bottom:1px solid #b38b2c;padding-bottom:9px}
-.card-top h3{color:#eac75e;margin:2px;font-size:19px}
-.card-top small{letter-spacing:2px;color:#ddd}
-.card-body{display:flex;gap:13px;align-items:center;padding:14px 0}
-.photo{
- width:105px;height:120px;object-fit:cover;
- border:2px solid #d8b24d;border-radius:5px;
- background:#333
-}
+.card-top h3{color:#eac75e;margin:2px;font-size:21px}
+.card-top small{letter-spacing:1.5px;font-size:9px;color:#ddd}
+.card-body{display:flex;gap:12px;align-items:center;padding:13px 0}
+.photo{width:105px;height:125px;object-fit:cover;border:2px solid #d8b24d;border-radius:5px;background:#333}
 .details{flex:1;min-width:0}
-.details h3{font-size:17px;color:#f1ce69;margin:0 0 12px;overflow-wrap:anywhere}
-.details p{font-size:12px;margin:8px 0;overflow-wrap:anywhere}
-.qr{background:white;padding:5px;border-radius:4px;width:85px;height:85px}
-.card-bottom{
- text-align:center;border-top:1px solid #b38b2c;
- padding-top:8px;color:#e8c45c;font-size:10px;
- letter-spacing:1px
-}
-.member{
- background:#292929;padding:12px;border-radius:8px;
- margin:9px 0;display:flex;gap:10px;align-items:center;
-}
+.details h3{font-size:17px;color:#f1ce69;margin:0 0 9px;overflow-wrap:anywhere}
+.details p{font-size:11px;margin:7px 0;overflow-wrap:anywhere}
+.qr{background:white;padding:4px;border-radius:4px;width:82px;height:82px;display:flex;align-items:center;justify-content:center}
+.qr img{max-width:100%;max-height:100%}
+.card-bottom{text-align:center;border-top:1px solid #b38b2c;padding-top:8px;color:#e8c45c;font-size:9px;letter-spacing:1px}
+.member{background:#292929;padding:12px;border-radius:8px;margin:9px 0;display:flex;gap:10px;align-items:center}
 .member img{width:48px;height:55px;object-fit:cover;border-radius:5px}
 .member-info{flex:1;min-width:0}
 .member-info strong{color:#e6bd50}
 .member-info small{display:block;color:#ccc;margin-top:5px}
-.actions{display:flex;flex-wrap:wrap;gap:4px}
-#message{color:#e6bd50;margin:8px 0}
 footer{text-align:center;color:#999;padding:20px;font-size:12px}
 @media print{
  body{background:white}
@@ -85,11 +56,12 @@ footer{text-align:center;color:#999;padding:20px;font-size:12px}
 }
 </style>
 </head>
+
 <body>
 
 <header>
 <h1>TGT DRAMA FAMILY</h1>
-<p>MEMBERSHIP MANAGEMENT SYSTEM</p>
+<p>OFFICIAL MEMBERSHIP MANAGEMENT SYSTEM</p>
 </header>
 
 <div class="container">
@@ -97,8 +69,32 @@ footer{text-align:center;color:#999;padding:20px;font-size:12px}
 <div class="panel">
 <h2>Register New Member</h2>
 
-<label>Member's Full Name</label>
-<input id="name" placeholder="Enter full name">
+<label>First Name</label>
+<input id="firstName" placeholder="Enter first name">
+
+<label>Surname</label>
+<input id="surname" placeholder="Enter surname">
+
+<label>State</label>
+<select id="state">
+<option value="">Select state</option>
+<option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option>
+<option>Anambra</option><option>Bauchi</option><option>Bayelsa</option>
+<option>Benue</option><option>Borno</option><option>Cross River</option>
+<option>Delta</option><option>Ebonyi</option><option>Edo</option>
+<option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option>
+<option>Gombe</option><option>Imo</option><option>Jigawa</option>
+<option>Kaduna</option><option>Kano</option><option>Katsina</option>
+<option>Kebbi</option><option>Kogi</option><option>Kwara</option>
+<option>Lagos</option><option>Nasarawa</option><option>Niger</option>
+<option>Ogun</option><option>Ondo</option><option>Osun</option>
+<option>Oyo</option><option>Plateau</option><option>Rivers</option>
+<option>Sokoto</option><option>Taraba</option><option>Yobe</option>
+<option>Zamfara</option>
+</select>
+
+<label>Nationality</label>
+<input id="nationality" value="Nigerian" placeholder="Enter nationality">
 
 <label>Position / Membership Category</label>
 <select id="position">
@@ -124,24 +120,33 @@ footer{text-align:center;color:#999;padding:20px;font-size:12px}
 
 <div class="panel">
 <h2>Membership Card Preview</h2>
+
 <div class="preview">
 <div class="card" id="membershipCard">
+
 <div class="card-top">
 <h3>TGT DRAMA FAMILY</h3>
 <small>OFFICIAL MEMBERSHIP IDENTITY CARD</small>
 </div>
+
 <div class="card-body">
-<img class="photo" id="cardPhoto" alt="Member photo">
+<img class="photo" id="cardPhoto" alt="Member photograph">
+
 <div class="details">
 <h3 id="cardName">MEMBER NAME</h3>
 <p>Membership No: <b id="cardNumber">TGT-0000</b></p>
-<p>Position: <b id="cardPosition">Member</b></p>
+<p>State: <b id="cardState">---</b></p>
+<p>Nationality: <b id="cardNationality">---</b></p>
+<p>Position: <b id="cardPosition">---</b></p>
 </div>
+
 <div class="qr" id="qrcode"></div>
 </div>
+
 <div class="card-bottom">
 PASSING THE TRUE GOSPEL THROUGH STAGE DRAMA
 </div>
+
 </div>
 </div>
 
@@ -154,12 +159,16 @@ PASSING THE TRUE GOSPEL THROUGH STAGE DRAMA
 
 <div class="panel">
 <h2>Registered Members</h2>
-<input id="search" placeholder="Search name or membership number..." oninput="displayMembers()">
+
+<input id="search" placeholder="Search member name or number..." oninput="displayMembers()">
+
 <div id="memberList"></div>
+
 <div class="no-print">
 <button class="gold" onclick="exportCSV()">EXPORT REGISTER CSV</button>
 <button class="dark" onclick="backup()">BACKUP DATA</button>
-<label>Restore a previous backup</label>
+
+<label>Restore previous backup</label>
 <input type="file" id="restoreFile" accept=".json" onchange="restoreBackup(event)">
 </div>
 </div>
@@ -169,7 +178,7 @@ PASSING THE TRUE GOSPEL THROUGH STAGE DRAMA
 <footer>TGT DRAMA FAMILY | Membership Administration</footer>
 
 <script>
-const STORAGE_KEY="tgt_drama_family_members_v2";
+const STORAGE_KEY="tgt_drama_family_members_v3";
 let members=[];
 let currentMember=null;
 let photoData="";
@@ -194,34 +203,43 @@ function nextNumber(){
 document.getElementById("photo").addEventListener("change",function(e){
  const file=e.target.files[0];
  if(!file)return;
+
  if(!file.type.startsWith("image/")){
   alert("Please select an image.");
-  return;
- }
- if(file.size>5*1024*1024){
-  alert("Please select a photo smaller than 5MB.");
   this.value="";
   return;
  }
+
+ if(file.size>5*1024*1024){
+  alert("Please select a photograph smaller than 5MB.");
+  this.value="";
+  return;
+ }
+
  const reader=new FileReader();
- reader.onload=function(){
-  photoData=reader.result;
- };
+ reader.onload=function(){photoData=reader.result;};
  reader.readAsDataURL(file);
 });
 
 function registerMember(){
- const name=document.getElementById("name").value.trim();
+ const firstName=document.getElementById("firstName").value.trim();
+ const surname=document.getElementById("surname").value.trim();
+ const state=document.getElementById("state").value;
+ const nationality=document.getElementById("nationality").value.trim();
  const position=document.getElementById("position").value;
 
- if(!name||!position||!photoData){
-  alert("Enter the member's name, select a position and upload a photograph.");
+ if(!firstName||!surname||!state||!nationality||!position||!photoData){
+  alert("Please complete all fields and upload the member's photograph.");
   return;
  }
 
  const member={
-  name:name,
-  position:position,
+  firstName,
+  surname,
+  name:firstName+" "+surname,
+  state,
+  nationality,
+  position,
   number:nextNumber(),
   photo:photoData,
   date:new Date().toISOString()
@@ -229,14 +247,16 @@ function registerMember(){
 
  members.push(member);
  save();
- currentMember=member;
  showCard(member);
  displayMembers();
 
  document.getElementById("message").textContent=
  "Membership card generated successfully: "+member.number;
 
- document.getElementById("name").value="";
+ document.getElementById("firstName").value="";
+ document.getElementById("surname").value="";
+ document.getElementById("state").value="";
+ document.getElementById("nationality").value="Nigerian";
  document.getElementById("position").value="";
  document.getElementById("photo").value="";
  photoData="";
@@ -244,17 +264,24 @@ function registerMember(){
 
 function showCard(m){
  currentMember=m;
+
  document.getElementById("cardName").textContent=m.name;
  document.getElementById("cardNumber").textContent=m.number;
+ document.getElementById("cardState").textContent=m.state;
+ document.getElementById("cardNationality").textContent=m.nationality;
  document.getElementById("cardPosition").textContent=m.position;
  document.getElementById("cardPhoto").src=m.photo;
+
  const qr=document.getElementById("qrcode");
  qr.innerHTML="";
+
  new QRCode(qr,{
   text:JSON.stringify({
    organization:"TGT DRAMA FAMILY",
    name:m.name,
    number:m.number,
+   state:m.state,
+   nationality:m.nationality,
    position:m.position
   }),
   width:75,
@@ -263,11 +290,25 @@ function showCard(m){
  });
 }
 
+async function makeCanvas(){
+ if(!currentMember){
+  alert("Register or select a member first.");
+  return null;
+ }
+ if(!window.html2canvas){
+  alert("Image library not loaded. Check your internet connection.");
+  return null;
+ }
+ return await html2canvas(document.getElementById("membershipCard"),{
+  scale:3,
+  backgroundColor:null
+ });
+}
+
 async function downloadCard(){
- if(!currentMember){alert("Register or select a member first.");return;}
- if(!window.html2canvas){alert("Image library not loaded. Check your internet connection.");return;}
- const card=document.getElementById("membershipCard");
- const canvas=await html2canvas(card,{scale:3,backgroundColor:null});
+ const canvas=await makeCanvas();
+ if(!canvas)return;
+
  const link=document.createElement("a");
  link.download=currentMember.number+".png";
  link.href=canvas.toDataURL("image/png");
@@ -275,82 +316,119 @@ async function downloadCard(){
 }
 
 function printCard(){
- if(!currentMember){alert("Select a member first.");return;}
+ if(!currentMember){
+  alert("Select a member first.");
+  return;
+ }
  window.print();
 }
 
 async function shareCard(){
- if(!currentMember){alert("Select a member first.");return;}
- try{
-  if(!window.html2canvas){alert("Image library not loaded. Check your internet connection.");return;}
-  const canvas=await html2canvas(document.getElementById("membershipCard"),{scale:2});
-  canvas.toBlob(async blob=>{
-   const file=new File([blob],currentMember.number+".png",{type:"image/png"});
-   if(navigator.canShare && navigator.canShare({files:[file]})){
-    try{await navigator.share({files:[file],title:"TGT DRAMA FAMILY Membership Card"});}
-    catch(e){}
-   }else{
-    await downloadCard();
-    window.open("https://wa.me/?text="+encodeURIComponent(
-     "Congratulations! Your TGT DRAMA FAMILY membership card is ready. Membership number: "+currentMember.number
-    ),"_blank");
-   }
-  },"image/png");
- }catch(e){alert("Unable to share. Please download the card and send it manually.");}
+ const canvas=await makeCanvas();
+ if(!canvas)return;
+
+ canvas.toBlob(async blob=>{
+  const file=new File([blob],currentMember.number+".png",{type:"image/png"});
+
+  if(navigator.canShare && navigator.canShare({files:[file]})){
+   try{
+    await navigator.share({
+     files:[file],
+     title:"TGT DRAMA FAMILY Membership Card"
+    });
+   }catch(e){}
+  }else{
+   const link=document.createElement("a");
+   link.href=canvas.toDataURL("image/png");
+   link.download=currentMember.number+".png";
+   link.click();
+
+   window.open("https://wa.me/?text="+encodeURIComponent(
+    "Your TGT DRAMA FAMILY membership card is ready. Membership number: "+currentMember.number
+   ),"_blank");
+  }
+ },"image/png");
 }
 
 function displayMembers(){
  const list=document.getElementById("memberList");
  const query=document.getElementById("search").value.toLowerCase();
+
  list.innerHTML="";
+
  const filtered=members.filter(m=>
-  m.name.toLowerCase().includes(query)||
-  m.number.toLowerCase().includes(query)
+  (m.name||"").toLowerCase().includes(query)||
+  (m.number||"").toLowerCase().includes(query)||
+  (m.state||"").toLowerCase().includes(query)
  );
+
  if(!filtered.length){
   list.textContent="No members found.";
   return;
  }
+
  filtered.forEach(m=>{
   const item=document.createElement("div");
   item.className="member";
+
   const img=document.createElement("img");
   img.src=m.photo;
   img.alt="Member";
+
   const info=document.createElement("div");
   info.className="member-info";
+
   const strong=document.createElement("strong");
   strong.textContent=m.name;
+
   const small=document.createElement("small");
-  small.textContent=m.number+" | "+m.position;
+  small.textContent=m.number+" | "+m.state+" | "+m.position;
+
   info.append(strong,small);
-  const actions=document.createElement("div");
-  actions.className="actions";
+
   const view=document.createElement("button");
   view.className="gold";
   view.textContent="VIEW";
   view.onclick=()=>showCard(m);
+
   const remove=document.createElement("button");
   remove.className="red";
   remove.textContent="DELETE";
+
   remove.onclick=()=>{
    if(confirm("Delete "+m.name+"?")){
     members=members.filter(x=>x.number!==m.number);
     save();
-    if(currentMember && currentMember.number===m.number)currentMember=null;
+
+    if(currentMember && currentMember.number===m.number){
+     currentMember=null;
+    }
+
     displayMembers();
    }
   };
-  actions.append(view,remove);
-  item.append(img,info,actions);
+
+  item.append(img,info,view,remove);
   list.append(item);
  });
 }
 
 function exportCSV(){
- const rows=[["Membership Number","Full Name","Position","Date Registered"]];
- members.forEach(m=>rows.push([m.number,m.name,m.position,m.date]));
- const csv=rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\n");
+ const rows=[
+  ["Membership Number","First Name","Surname","State","Nationality","Position","Date Registered"]
+ ];
+
+ members.forEach(m=>{
+  rows.push([
+   m.number,m.firstName,m.surname,m.state,
+   m.nationality,m.position,m.date
+  ]);
+ });
+
+ const csv=rows.map(row=>
+  row.map(v=>'"'+String(v||"").replace(/"/g,'""')+'"').join(",")
+ ).join("\n");
+
  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"});
  const link=document.createElement("a");
  link.href=URL.createObjectURL(blob);
@@ -371,21 +449,30 @@ function backup(){
 function restoreBackup(event){
  const file=event.target.files[0];
  if(!file)return;
+
  const reader=new FileReader();
+
  reader.onload=function(){
   try{
    const data=JSON.parse(reader.result);
+
    if(!Array.isArray(data)||!data.every(m=>m.number&&m.name&&m.photo)){
     throw new Error("Invalid backup");
    }
+
    const combined=new Map(members.map(m=>[m.number,m]));
    data.forEach(m=>combined.set(m.number,m));
+
    members=Array.from(combined.values());
    save();
    displayMembers();
+
    alert("Backup restored successfully.");
-  }catch(e){alert("This backup file is not valid.");}
+  }catch(e){
+   alert("This backup file is not valid.");
+  }
  };
+
  reader.readAsText(file);
  event.target.value="";
 }
