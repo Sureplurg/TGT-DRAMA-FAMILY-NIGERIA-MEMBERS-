@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111111">
+<title>TGT Drama Family Member Registry</title>
+<style>
+:root{--gold:#f2c94c;--green:#168b45;--bg:#0c0c0c;--panel:#1b1b1b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f7f7;font-family:Arial,sans-serif}
+header{text-align:center;padding:26px 14px;background:linear-gradient(135deg,#050505,#292315);border-bottom:3px solid var(--gold)}
+h1{margin:0;color:var(--gold);font-size:clamp(25px,6vw,42px)}header p{margin:8px 0 0}
+main{max-width:1050px;margin:20px auto;padding:0 12px 30px}.note{padding:13px;border:1px solid #287444;background:#14251a;border-radius:10px;line-height:1.5;margin-bottom:16px}
+.layout{display:grid;gap:16px}@media(min-width:760px){.layout{grid-template-columns:340px 1fr}}
+.card{background:var(--panel);border:1px solid #393939;border-radius:13px;padding:17px}h2{color:var(--gold);font-size:20px;margin:0 0 14px}
+label{display:block;font-weight:bold;margin:12px 0 6px;font-size:14px}input,select{width:100%;padding:12px;border-radius:8px;border:1px solid #555;background:#101010;color:white;font-size:16px}
+button{padding:12px 14px;border:0;border-radius:8px;font-weight:bold;cursor:pointer}.primary{width:100%;margin-top:16px;background:var(--green);color:white}.gold{background:var(--gold);color:#111}.dark{background:#333;color:white;border:1px solid #555}
+.result{display:none;margin-top:16px;text-align:center;border:2px solid var(--gold);border-radius:10px;padding:14px}.code{font-size:clamp(27px,7vw,38px);font-weight:900;color:var(--gold);overflow-wrap:anywhere}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.stat{background:#111;border:1px solid #444;border-radius:9px;padding:12px}.stat strong{display:block;color:var(--gold);font-size:24px}.stat span,.small{font-size:12px;color:#bbb;line-height:1.5}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.search{margin-bottom:10px}.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:600px;font-size:14px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #393939}th{color:var(--gold);background:#111}.pill{color:var(--gold);border:1px solid #66551f;background:#2b2615;border-radius:20px;padding:4px 7px;white-space:nowrap}.empty{color:#bbb;padding:16px 0}footer{text-align:center;color:#888;font-size:12px;padding:20px}
+@media print{body{background:white;color:black}header{background:white;color:black;border-bottom:2px solid black}h1,h2,.stat strong,th{color:black}.card{background:white;color:black;border:1px solid #aaa}.note,.actions,.search,form,.result,footer{display:none!important}table{min-width:0;font-size:10px}th,td{color:black;padding:5px}}
+</style>
+</head>
+<body>
+<header><h1>TGT DRAMA FAMILY</h1><p>Member Registration & Numbering System</p><p style="color:#f2c94c;font-weight:bold">Together for God's Truth</p></header>
+<main>
+<div class="note"><b>Important:</b> This version stores records only in this browser on this device. For a shared register that works across multiple phones, a database such as Firebase is needed. Export your register regularly as a backup.</div>
+<div class="layout">
+<section class="card">
+<h2>Register New Member</h2>
+<form id="form">
+<label for="name">Member's full name *</label><input id="name" maxlength="100" required placeholder="Enter full name">
+<label for="state">State / location</label><input id="state" maxlength="80" placeholder="e.g. Edo, Lagos, Abuja">
+<label for="phone">Phone number (optional)</label><input id="phone" type="tel" maxlength="30" placeholder="Phone number">
+<label for="category">Member category</label>
+<select id="category"><option>Member</option><option>Actor / Actress</option><option>Writer</option><option>Director</option><option>Production / Support</option><option>Volunteer</option></select>
+<button class="primary" type="submit">Generate Member Code</button>
+</form>
+<div class="result" id="result" aria-live="polite"><div>NEW MEMBER CODE</div><div class="code" id="code"></div><div id="rank"></div><div id="person"></div><div class="actions" style="justify-content:center"><button class="gold" id="copy" type="button">Copy Member Details</button></div></div>
+<p class="small">Codes are issued in order: TGT-0001, TGT-0002, TGT-0003, and so on. Existing members keep their original number.</p>
+</section>
+<section class="card">
+<h2>Member Register</h2>
+<div class="stats"><div class="stat"><strong id="total">0</strong><span>Total registered</span></div><div class="stat"><strong id="latest">—</strong><span>Latest member code</span></div></div>
+<input id="search" class="search" placeholder="Search name, code, state, category">
+<div class="actions"><button class="gold" id="export" type="button">Export CSV Backup</button><button class="dark" id="print" type="button">Print Register</button></div>
+<div class="tablewrap"><table><thead><tr><th>No.</th><th>Member code</th><th>Name</th><th>State</th><th>Category</th><th>Date registered</th></tr></thead><tbody id="rows"></tbody></table><div class="empty" id="empty">No members registered yet.</div></div>
+</section>
+</div>
+</main><footer>TGT DRAMA FAMILY • Keep members' personal information private.</footer>
+<script>
+(()=>{
+const KEY="tgtDramaFamilyMembers_v1", NEXT="tgtDramaFamilyNextNumber_v1";
+const $=id=>document.getElementById(id);let last=null;
+function load(){try{let x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch(e){return[]}}
+function code(n){return "TGT-"+String(n).padStart(4,"0")}
+function date(s){let d=new Date(s);return isNaN(d)? "":d.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"2-digit"})}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function render(){let all=load().sort((a,b)=>a.number-b.number),q=$("search").value.trim().toLowerCase();
+let list=all.filter(m=>[m.code,m.name,m.state,m.category,m.phone,m.number].some(v=>String(v||"").toLowerCase().includes(q)));
+$("total").textContent=all.length;$("latest").textContent=all.length?all[all.length-1].code:"—";
+$("rows").innerHTML=list.map(m=>`<tr><td>${m.number}</td><td><span class="pill">${esc(m.code)}</span></td><td>${esc(m.name)}</td><td>${esc(m.state||"—")}</td><td>${esc(m.category)}</td><td>${esc(date(m.createdAt))}</td></tr>`).join("");
+$("empty").style.display=list.length?"none":"block";$("empty").textContent=q?"No matching members found.":"No members registered yet."}
+$("form").addEventListener("submit",e=>{e.preventDefault();let name=$("name").value.trim();if(!name)return;
+let all=load(),stored=Number(localStorage.getItem(NEXT)||1),max=all.reduce((a,m)=>Math.max(a,Number(m.number)||0),0),n=Math.max(stored,max+1,1);
+last={number:n,code:code(n),name,state:$("state").value.trim(),phone:$("phone").value.trim(),category:$("category").value,createdAt:new Date().toISOString()};
+try{all.push(last);localStorage.setItem(KEY,JSON.stringify(all));localStorage.setItem(NEXT,String(n+1))}catch(err){alert("Could not save. Please check browser storage settings.");return}
+$("code").textContent=last.code;$("rank").textContent="Joining order: Member #"+n;$("person").textContent=last.name;$("result").style.display="block";$("form").reset();render()});
+$("copy").addEventListener("click",async()=>{if(!last)return;let t=`TGT DRAMA FAMILY MEMBER\nName: ${last.name}\nMember code: ${last.code}\nJoining order: Member #${last.number}\nState: ${last.state||"Not provided"}\nCategory: ${last.category}\nDate registered: ${date(last.createdAt)}`;try{await navigator.clipboard.writeText(t);alert("Member details copied.")}catch(e){prompt("Copy member details:",t)}});
+$("search").addEventListener("input",render);
+$("export").addEventListener("click",()=>{let all=load().sort((a,b)=>a.number-b.number);if(!all.length){alert("No members to export yet.");return}let cols=["number","code","name","state","phone","category","createdAt"],cell=v=>'"'+String(v??"").replace(/"/g,'""')+'"',csv=[cols.join(","),...all.map(m=>cols.map(c=>cell(m[c])).join(","))].join("\r\n"),blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="TGT_Drama_Family_Member_Register.csv";a.click();URL.revokeObjectURL(url)});
+$("print").addEventListener("click",()=>window.print());render();
+})();
+</script>
+</body></html>
