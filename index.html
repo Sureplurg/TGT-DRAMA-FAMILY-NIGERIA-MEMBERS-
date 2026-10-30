@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>TGT Drama Family Membership Portal</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -11,90 +11,198 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#090806;color:white;font-family:Arial,sans-serif}
-header{text-align:center;padding:22px;background:linear-gradient(120deg,#090806,#49300d,#090806);border-bottom:2px solid #d9a83d}
-header h1{color:#ffda83;margin:0;font-size:28px}
-header p{color:#e8c77c}
-main{max-width:1100px;margin:20px auto;padding:12px;display:grid;grid-template-columns:340px 1fr;gap:18px}
-.panel{background:#17130d;padding:18px;border:1px solid #8d6828;border-radius:12px}
-h2{color:#f5d27d;font-size:19px}
-label{display:block;color:#e8c77c;margin:12px 0 5px;font-size:13px}
-input,select{width:100%;padding:11px;background:#080706;color:white;border:1px solid #80602b;border-radius:6px}
-button{padding:11px 14px;margin:5px 3px 0 0;background:linear-gradient(120deg,#a8751d,#f6d889);border:0;border-radius:6px;font-weight:bold;cursor:pointer;color:#160e02}
-.secondary{background:#392b16;color:#ffe1a0;border:1px solid #98702d}
-.danger{background:#802c20;color:white}
-.actions{margin-top:12px;display:flex;flex-wrap:wrap}
-.member{display:flex;justify-content:space-between;align-items:center;padding:10px;border-bottom:1px solid #51401e;gap:8px}
-#members{max-height:350px;overflow:auto;margin-top:12px}
-.small{font-size:12px;color:#cdbb91;line-height:1.5}
-#cardArea{overflow:auto;padding:5px}
+body{
+ margin:0;background:#100d09;color:#fff;
+ font-family:Arial,sans-serif;
+}
+header{
+ text-align:center;padding:20px 12px;
+ background:linear-gradient(120deg,#090706,#48300e,#090706);
+ border-bottom:2px solid #d9ac4b;
+}
+header h1{margin:0;color:#f6d68b;font-size:clamp(21px,4vw,30px)}
+header p{margin:7px 0 0;color:#e8c77c;font-size:13px}
 
+main{
+ width:100%;max-width:1150px;margin:20px auto;
+ padding:12px;display:grid;
+ grid-template-columns:minmax(0,340px) minmax(0,1fr);
+ gap:16px;
+}
+.panel{
+ min-width:0;background:#1a160f;
+ padding:16px;border:1px solid #80602c;
+ border-radius:12px;
+}
+h2{font-size:19px;color:#f5d27d;margin:4px 0 15px}
+label{display:block;color:#e9ca80;margin:12px 0 5px;font-size:13px}
+input,select{
+ width:100%;min-width:0;padding:12px;
+ background:#090806;color:white;
+ border:1px solid #82632f;border-radius:7px;
+ font-size:15px;
+}
+button{
+ padding:12px 15px;margin:5px 3px 0 0;
+ background:linear-gradient(120deg,#aa781f,#f5d88c);
+ border:0;border-radius:7px;
+ font-weight:bold;cursor:pointer;color:#170f03;
+}
+button.secondary{background:#382b17;color:#ffe0a0;border:1px solid #98702d}
+button.danger{background:#842e21;color:white}
+.actions{display:flex;flex-wrap:wrap;gap:5px}
+.small{font-size:12px;color:#cdbb91;line-height:1.5}
+
+#cardArea{width:100%;min-width:0}
+.card-viewport{
+ width:100%;overflow:hidden;
+ position:relative;
+}
+.card-stage{
+ width:850px;height:535px;
+ transform-origin:top left;
+}
 .idcard{
-width:850px;height:535px;position:relative;overflow:hidden;
-border:5px solid #e0b64d;border-radius:22px;
-background:
-radial-gradient(ellipse at 72% 50%,#9c641c 0%,#462607 15%,transparent 38%),
-linear-gradient(90deg,rgba(0,0,0,.92),rgba(15,9,2,.73),rgba(0,0,0,.94)),
-repeating-linear-gradient(90deg,#170a04 0 25px,#58200b 28px 42px,#190904 45px 65px);
-box-shadow:0 10px 35px #000;
+ width:850px;height:535px;
+ position:relative;overflow:hidden;
+ border:5px solid #e0b64d;border-radius:22px;
+ background:
+ radial-gradient(ellipse at 72% 50%,#9c641c 0%,#462607 15%,transparent 38%),
+ linear-gradient(90deg,rgba(0,0,0,.94),rgba(15,9,2,.74),rgba(0,0,0,.94)),
+ repeating-linear-gradient(90deg,#170a04 0 25px,#58200b 28px 42px,#190904 45px 65px);
+ box-shadow:0 10px 35px #000;
+ color:white;
 }
 .idcard:before{
-content:"";position:absolute;inset:0;
-background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.75));
-pointer-events:none
+ content:"";position:absolute;inset:0;
+ background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.75));
+ pointer-events:none;
 }
-.curtain{position:absolute;top:0;bottom:0;width:65px;z-index:1;
-background:repeating-linear-gradient(90deg,#260a03,#8b3b0a 14px,#350d04 27px)}
-.curtain.left{left:0}.curtain.right{right:0}
-.spotlight{position:absolute;left:50%;top:80px;width:280px;height:350px;
-background:linear-gradient(180deg,rgba(255,206,105,.35),transparent);
-clip-path:polygon(40% 0,60% 0,100% 100%,0 100%)}
+.curtain{
+ position:absolute;top:0;bottom:0;width:65px;z-index:1;
+ background:repeating-linear-gradient(90deg,#260a03,#8b3b0a 14px,#350d04 27px);
+}
+.curtain.left{left:0}
+.curtain.right{right:0}
+.spotlight{
+ position:absolute;left:50%;top:80px;width:280px;height:350px;
+ background:linear-gradient(180deg,rgba(255,206,105,.35),transparent);
+ clip-path:polygon(40% 0,60% 0,100% 100%,0 100%);
+}
 .art{position:absolute;right:20px;top:100px;font-size:65px;opacity:.18}
 .book{position:absolute;left:20px;bottom:5px;font-size:60px;opacity:.17}
+
 .inside{position:absolute;inset:23px 28px;z-index:2}
-.brand{display:flex;align-items:center;gap:14px;margin-left:185px;height:90px}
-.logo{width:75px;height:75px;border-radius:50%;border:3px solid #e8bd56;object-fit:cover;background:#080706}
-.brand h1{font-family:Georgia,serif;color:#ffda83;font-size:37px;margin:0}
+.brand{
+ display:flex;align-items:center;gap:14px;
+ margin-left:185px;height:90px;
+}
+.logo{
+ width:75px;height:75px;border-radius:50%;
+ border:3px solid #e8bd56;object-fit:cover;
+ background:#080706;
+}
+.brand h1{
+ font-family:Georgia,serif;color:#ffda83;
+ font-size:37px;margin:0;
+}
 .brand .sub{font-size:12px;letter-spacing:2px;color:#f2ce77;margin-top:5px}
 .brand .motto{font-family:Georgia,serif;font-style:italic;color:#ffda83;margin-top:5px}
-.photo{position:absolute;left:22px;top:112px;width:205px;height:280px;object-fit:cover;border:4px solid #e5b64c;border-radius:14px;background:#333}
+
+.photo{
+ position:absolute;left:22px;top:112px;
+ width:205px;height:280px;object-fit:cover;
+ border:4px solid #e5b64c;border-radius:14px;
+ background:#333;
+}
 .details{position:absolute;left:255px;top:112px;width:350px}
 .detail{border-bottom:1px solid #9c742e;padding:5px 0;margin-bottom:3px}
-.detail b{display:block;color:#f3c75e;font-size:11px;letter-spacing:1px;text-transform:uppercase}
-.detail span{display:block;font-size:18px;font-weight:bold;margin-top:3px;overflow-wrap:anywhere}
+.detail b{
+ display:block;color:#f3c75e;font-size:11px;
+ letter-spacing:1px;text-transform:uppercase;
+}
+.detail span{
+ display:block;font-size:18px;font-weight:bold;
+ margin-top:3px;overflow-wrap:anywhere;
+}
 .detail.number span{font-size:24px;color:#ffe2a0}
-.president{position:absolute;right:10px;top:125px;width:165px;text-align:center;padding:9px;background:#100c08e8;border:2px solid #d7a83f;border-radius:10px;color:#ffdc83}
+
+.president{
+ position:absolute;right:10px;top:125px;width:165px;
+ text-align:center;padding:9px;
+ background:#100c08e8;border:2px solid #d7a83f;
+ border-radius:10px;color:#ffdc83;
+}
 .president b{display:block;font-size:10px;letter-spacing:1px}
 .president strong{display:block;font-size:17px;margin-top:6px}
-.qrbox{position:absolute;right:10px;top:230px;width:145px;text-align:center;background:white;color:#111;border:4px solid #d9a83d;border-radius:10px;padding:7px}
+
+.qrbox{
+ position:absolute;right:10px;top:230px;width:145px;
+ text-align:center;background:white;color:#111;
+ border:4px solid #d9a83d;border-radius:10px;padding:7px;
+}
 #qrcode{display:flex;justify-content:center;align-items:center;min-height:112px}
 #qrcode img{max-width:112px}
 .qrbox small{font-size:9px;font-weight:bold;display:block;margin-top:5px}
-.slogan{position:absolute;right:4px;bottom:20px;width:185px;text-align:center;font-family:Georgia,serif;font-style:italic;color:#ffda83;font-size:18px}
-.bottomline{position:absolute;left:255px;bottom:3px;font-size:10px;color:#eac66d;letter-spacing:1px}
-@media(max-width:800px){main{grid-template-columns:1fr}}
+
+.slogan{
+ position:absolute;right:4px;bottom:20px;width:185px;
+ text-align:center;font-family:Georgia,serif;
+ font-style:italic;color:#ffda83;font-size:18px;
+}
+.bottomline{
+ position:absolute;left:255px;bottom:3px;
+ font-size:10px;color:#eac66d;letter-spacing:1px;
+}
+
+.member{
+ display:flex;justify-content:space-between;
+ align-items:center;padding:10px;
+ border-bottom:1px solid #51401e;gap:8px;
+}
+.member span{overflow-wrap:anywhere}
+#members{max-height:350px;overflow:auto;margin-top:12px}
+
+@media(max-width:760px){
+ main{grid-template-columns:minmax(0,1fr);padding:9px;margin:8px auto;gap:12px}
+ .panel{padding:13px}
+ header{padding:17px 8px}
+ h2{font-size:17px}
+ button{font-size:13px}
+ .member{align-items:flex-start}
+ .member button{padding:9px 10px}
+}
+
 @media print{
-body{background:white}
-header,.no-print,main>.panel:first-child,main>.panel:nth-child(2)>h2,main>.panel:nth-child(2)>.actions{display:none!important}
-main{display:block;margin:0;padding:0}
-.panel{background:white;border:0;padding:0}
-#cardArea{overflow:visible}
-.idcard{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ @page{size:landscape;margin:0}
+ body{background:white}
+ header,.no-print,main>.panel:first-child,
+ main>.panel:nth-child(2)>h2,
+ main>.panel:nth-child(2)>.actions{display:none!important}
+ main{display:block;margin:0;padding:0}
+ .panel{background:white;border:0;padding:0}
+ #cardArea{overflow:visible}
+ .card-viewport{overflow:visible!important;width:850px!important;height:535px!important}
+ .card-stage{transform:none!important}
+ .idcard{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
 </head>
 
 <body>
+
 <header>
 <h1>TGT DRAMA FAMILY</h1>
 <p>Faith • Drama • Impact | Official Membership Portal</p>
 </header>
 
 <main>
+
 <section class="panel">
 <h2>Register New Member</h2>
 
 <form id="form">
+
 <label>First Name</label>
 <input id="first" required>
 
@@ -142,23 +250,28 @@ main{display:block;margin:0;padding:0}
 
 <hr style="border-color:#60451e;margin:20px 0">
 
-<h2>Upload Organisation Logo</h2>
+<h2>Organisation Logo</h2>
+<label>Upload TGT Drama Family Logo</label>
 <input type="file" id="logoUpload" accept="image/*">
-<p class="small">Upload your TGT Drama Family logo. It will appear on the membership card.</p>
+<p class="small">Your uploaded logo is stored in this browser on this device.</p>
 
 <div class="actions">
 <button class="secondary" onclick="backup()">Backup Records</button>
-<button class="secondary" onclick="document.getElementById('restore').click()">Restore Backup</button>
+<button class="secondary" onclick="$('restore').click()">Restore Backup</button>
 <button class="secondary" onclick="exportCSV()">Export CSV</button>
 <input type="file" id="restore" accept=".json" hidden>
 </div>
 </section>
 
 <section class="panel">
-<h2>Membership Identity Card</h2>
+<h2>Membership Identity Card Preview</h2>
 
 <div id="cardArea">
+<div class="card-viewport" id="viewport">
+<div class="card-stage" id="cardStage">
+
 <div class="idcard" id="card">
+
 <div class="curtain left"></div>
 <div class="curtain right"></div>
 <div class="spotlight"></div>
@@ -166,6 +279,7 @@ main{display:block;margin:0;padding:0}
 <div class="book">📖</div>
 
 <div class="inside">
+
 <div class="brand">
 <img id="cardLogo" class="logo" alt="TGT Logo">
 <div>
@@ -199,6 +313,8 @@ main{display:block;margin:0;padding:0}
 
 <div class="slogan">Using Drama<br>to Touch Lives<br>for Christ</div>
 <div class="bottomline">TGT DRAMA FAMILY • FAITH • DRAMA • IMPACT</div>
+
+</div>
 </div>
 </div>
 </div>
@@ -212,12 +328,13 @@ main{display:block;margin:0;padding:0}
 <h2 style="margin-top:25px">Registered Members</h2>
 <input id="search" placeholder="Search members..." oninput="showMembers()">
 <div id="members"></div>
+
 </section>
 </main>
 
 <script>
-const KEY="TGT_DRAMA_MEMBERS_SECURE_V1";
-const LOGO="TGT_DRAMA_LOGO_V1";
+const KEY="TGT_DRAMA_MEMBERS_MOBILE_V2";
+const LOGO="TGT_DRAMA_LOGO_MOBILE_V2";
 
 let members=JSON.parse(localStorage.getItem(KEY)||"[]");
 let current=null;
@@ -229,8 +346,20 @@ function save(){
  localStorage.setItem(KEY,JSON.stringify(members));
 }
 
+function resizeCard(){
+ let viewport=$("viewport");
+ let stage=$("cardStage");
+ if(!viewport||!stage)return;
+
+ let scale=Math.min(viewport.clientWidth/850,1);
+ stage.style.transform="scale("+scale+")";
+ viewport.style.height=(535*scale)+"px";
+}
+
+window.addEventListener("resize",resizeCard);
+
 function uniqueID(){
- if(window.crypto && crypto.randomUUID){
+ if(window.crypto&&crypto.randomUUID){
   return "TGT-VERIFY-"+crypto.randomUUID();
  }
  return "TGT-VERIFY-"+Date.now()+"-"+Math.random().toString(36).slice(2,14);
@@ -255,7 +384,7 @@ function readImage(file){
 
 $("photo").addEventListener("change",async e=>{
  let file=e.target.files[0];
- if(file) photoData=await readImage(file);
+ if(file)photoData=await readImage(file);
 });
 
 $("logoUpload").addEventListener("change",async e=>{
@@ -271,7 +400,7 @@ function loadLogo(){
  $("cardLogo").style.visibility=logo?"visible":"hidden";
 }
 
-$("form").addEventListener("submit",async e=>{
+$("form").addEventListener("submit",e=>{
  e.preventDefault();
 
  if(!photoData){
@@ -301,7 +430,7 @@ $("form").addEventListener("submit",async e=>{
  $("nationality").value="Nigerian";
  photoData="";
 
- alert("Registration successful! Membership number: "+member.number);
+ alert("Member registered successfully: "+member.number);
 });
 
 function displayCard(m){
@@ -321,25 +450,26 @@ function displayCard(m){
  let qrDetails={
   organisation:"TGT DRAMA FAMILY",
   membershipNumber:m.number,
-  uniqueVerificationID:m.verificationID,
-  name:m.first+" "+m.surname,
-  phone:m.phone,
-  state:m.state,
-  nationality:m.nationality,
-  position:m.position,
-  dateIssued:m.dateIssued
+  uniqueVerificationID:m.verificationID
  };
 
  if(window.QRCode){
   new QRCode($("qrcode"),{
    text:JSON.stringify(qrDetails),
-   width:112,
-   height:112,
+   width:112,height:112,
    correctLevel:QRCode.CorrectLevel.H
   });
  }else{
   $("qrcode").textContent="QR library unavailable";
  }
+
+ resizeCard();
+}
+
+function safe(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
 }
 
 function showMembers(){
@@ -366,7 +496,7 @@ function showMembers(){
   del.textContent="DELETE";
   del.className="danger";
   del.onclick=()=>{
-   if(confirm("Are you sure you want to delete "+m.number+"?")){
+   if(confirm("Delete "+m.number+"?")){
     members=members.filter(x=>x.verificationID!==m.verificationID);
     save();
     showMembers();
@@ -379,31 +509,48 @@ function showMembers(){
  });
 }
 
-function safe(value){
- return String(value).replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
-}
-
 async function downloadCard(){
  if(!current){
   alert("Please register or select a member first.");
   return;
  }
+
  if(!window.html2canvas){
   alert("Connect to the internet and try again.");
   return;
  }
 
- let canvas=await html2canvas($("card"),{
-  scale:2,
-  backgroundColor:null
- });
+ let stage=$("cardStage");
+ let oldTransform=stage.style.transform;
 
- let link=document.createElement("a");
- link.download=current.number+"-TGT-ID.png";
- link.href=canvas.toDataURL("image/png");
- link.click();
+ try{
+  stage.style.transform="none";
+
+  let canvas=await html2canvas($("card"),{
+   scale:3,
+   width:850,
+   height:535,
+   backgroundColor:null,
+   useCORS:true,
+   allowTaint:false,
+   logging:false,
+   scrollX:0,
+   scrollY:0,
+   windowWidth:1000,
+   windowHeight:700
+  });
+
+  let link=document.createElement("a");
+  link.download=current.number+"-TGT-Drama-Family-ID.png";
+  link.href=canvas.toDataURL("image/png");
+  link.click();
+
+ }catch(error){
+  alert("Unable to create the card image. Please try again.");
+ }finally{
+  stage.style.transform=oldTransform;
+  resizeCard();
+ }
 }
 
 async function shareCard(){
@@ -413,16 +560,23 @@ async function shareCard(){
  }
 
  if(!navigator.share){
-  downloadCard();
-  window.open("https://wa.me/?text="+encodeURIComponent(
-   "TGT Drama Family ID Card: "+current.first+" "+current.surname+
-   " | "+current.number+" | President: 08077063558"
-  ),"_blank");
+  await downloadCard();
   return;
  }
 
  try{
-  let canvas=await html2canvas($("card"),{scale:2});
+  let stage=$("cardStage");
+  let oldTransform=stage.style.transform;
+  stage.style.transform="none";
+
+  let canvas=await html2canvas($("card"),{
+   scale:3,width:850,height:535,
+   backgroundColor:null,useCORS:true
+  });
+
+  stage.style.transform=oldTransform;
+  resizeCard();
+
   let blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
   let file=new File([blob],current.number+"-TGT-ID.png",{type:"image/png"});
 
@@ -431,8 +585,10 @@ async function shareCard(){
    title:"TGT Drama Family Membership Card",
    text:"TGT Drama Family Membership Card"
   });
+
  }catch(error){
-  alert("Sharing was cancelled or unavailable. Try downloading the card.");
+  resizeCard();
+  alert("Sharing was cancelled or unavailable. Download the card instead.");
  }
 }
 
@@ -455,8 +611,7 @@ $("restore").addEventListener("change",async e=>{
 
  try{
   let data=JSON.parse(await file.text());
-
-  if(!Array.isArray(data.members))throw Error("Invalid backup");
+  if(!Array.isArray(data.members))throw Error();
 
   let combined=new Map(members.map(m=>[m.verificationID,m]));
 
@@ -474,6 +629,7 @@ $("restore").addEventListener("change",async e=>{
 
   showMembers();
   alert("Backup restored successfully.");
+
  }catch(error){
   alert("Invalid backup file.");
  }
@@ -485,8 +641,8 @@ function exportCSV(){
  let rows=[
   ["Membership Number","Verification ID","First Name","Surname","Phone","State","Nationality","Position"],
   ...members.map(m=>[
-   m.number,m.verificationID,m.first,m.surname,m.phone,
-   m.state,m.nationality,m.position
+   m.number,m.verificationID,m.first,m.surname,
+   m.phone,m.state,m.nationality,m.position
   ])
  ];
 
@@ -502,6 +658,7 @@ function exportCSV(){
 
 loadLogo();
 showMembers();
+resizeCard();
 </script>
 </body>
 </html>
